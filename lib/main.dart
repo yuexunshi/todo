@@ -5,7 +5,7 @@ import 'package:todo/modules/splash/splash_page.dart';
 import 'package:todo/routes/app_pages.dart';
 import 'package:todo/theme/app_theme.dart';
 
-void main() {
+void main() async {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: '/',

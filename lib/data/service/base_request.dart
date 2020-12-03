@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:todo/data/service/result.dart';
+import 'package:todo/data/service/app_response.dart';
 
-import 'app_dio.dart';
+import 'app_error.dart';
+import 'dio_client.dart';
 
-class BaseRequest {
+abstract class BaseRequest<R extends BaseRequest<R>> {
+  final DioClient client;
+
 //请求头
   Map<String, dynamic> _headers;
 
@@ -24,16 +27,9 @@ class BaseRequest {
   //请求参数
   Map<String, dynamic /*String|Iterable<String>*/ > _queryParameters;
 
-  dynamic _data;
+  BaseRequest(this.client);
 
-  BaseRequest addData(dynamic data) {
-    if (data == null) {
-      _data = data;
-    }
-    return this;
-  }
-
-  BaseRequest addHeaders(Map<String, dynamic> headers) {
+  R addHeaders(Map<String, dynamic> headers) {
     if (_headers == null) {
       _headers = {};
     }
@@ -41,7 +37,7 @@ class BaseRequest {
     return this;
   }
 
-  BaseRequest addHeader(String headerKey, dynamic headerValue) {
+  R addHeader(String headerKey, dynamic headerValue) {
     if (_headers == null) {
       _headers = {};
     }
@@ -50,22 +46,22 @@ class BaseRequest {
   }
 
   ///请求的Content-Type
-  BaseRequest setContentType(String contentType) {
-    if (_contentType != null) {
+  R setContentType(String contentType) {
+    if (contentType != null) {
       _contentType = contentType;
     }
     return this;
   }
 
   ///设置响应数据类型
-  BaseRequest setResponseType(ResponseType responseType) {
+  R setResponseType(ResponseType responseType) {
     if (responseType != null) {
       _responseType = responseType;
     }
     return this;
   }
 
-  Options generateOptions() {
+  Options _generateOptions() {
     var options = Options();
     if (_headers != null) {
       options..headers = _headers;
@@ -79,7 +75,9 @@ class BaseRequest {
     return options;
   }
 
-  BaseRequest addParams(Map<String, dynamic> params) {
+  dynamic generateData();
+
+  R addParams(Map<String, dynamic> params) {
     if (_queryParameters == null) {
       _queryParameters = {};
     }
@@ -87,7 +85,7 @@ class BaseRequest {
     return this;
   }
 
-  BaseRequest addParam(String paramKey, dynamic paramValue) {
+  R addParam(String paramKey, dynamic paramValue) {
     if (_queryParameters == null) {
       _queryParameters = {};
     }
@@ -95,55 +93,73 @@ class BaseRequest {
     return this;
   }
 
-  Future<Result> post(String url) async {
+  Future<AppResponse> post(String url) async {
     try {
-      final dio = AppDio.getInstance();
-      var response = await dio.post(url, data: _data, options: generateOptions(), queryParameters: _queryParameters);
+      var date = generateData();
+      var response = await client.post(url, data: date, options: _generateOptions(), queryParameters: _queryParameters);
       print('ResponseSuccess: ${response.toString()}');
+      return _fromJson(response);
     } on DioError catch (e) {
       print('DioError==$e');
+      return AppResponse.failureFromError(AppError(e));
     } catch (e) {
-      print('未知类型');
+      return AppResponse.failureFromError(AppError(e));
     }
-    return Result.success();
   }
 
-  Future<Result> get(String url) async {
+  Future<AppResponse> get(String url) async {
     try {
-      final dio = AppDio.getInstance();
-      var response = await dio.get(url, options: generateOptions(), queryParameters: _queryParameters);
+      var response = await client.get(url, options: _generateOptions(), queryParameters: _queryParameters);
       print('ResponseSuccess: ${response.toString()}');
+      return _fromJson(response);
     } on DioError catch (e) {
       print('DioError==$e');
+      return AppResponse.failureFromError(AppError(e));
     } catch (e) {
-      print('未知类型');
+      return AppResponse.failureFromError(AppError(e));
     }
-    return Result.success();
   }
 
-  Future<Result> delete(String url) async {
+  Future<AppResponse> delete(String url) async {
     try {
-      final dio = AppDio.getInstance();
-      var response = await dio.delete(url, data: _data, options: generateOptions(), queryParameters: _queryParameters);
+      var date = generateData();
+      var response =
+          await client.delete(url, data: date, options: _generateOptions(), queryParameters: _queryParameters);
       print('ResponseSuccess: ${response.toString()}');
+      return _fromJson(response);
     } on DioError catch (e) {
       print('DioError==$e');
+      return AppResponse.failureFromError(AppError(e));
     } catch (e) {
-      print('未知类型');
+      return AppResponse.failureFromError(AppError(e));
     }
-    return Result.success();
   }
 
-  Future<Result> put(String url) async {
+  Future<AppResponse> put(String url) async {
     try {
-      final dio = AppDio.getInstance();
-      var response = await dio.put(url, data: _data, options: generateOptions(), queryParameters: _queryParameters);
-      print('ResponseSuccess: ${response.toString()}');
+      var date = generateData();
+      var response = await client.put(url, data: date, options: _generateOptions(), queryParameters: _queryParameters);
+      if (response) print('ResponseSuccess: ${response.toString()}');
+      return _fromJson(response);
     } on DioError catch (e) {
       print('DioError==$e');
+      return AppResponse.failureFromError(AppError(e));
     } catch (e) {
-      print('未知类型');
+      return AppResponse.failureFromError(AppError(e));
     }
-    return Result.success();
+  }
+
+  AppResponse _fromJson(dynamic response) {
+    if (response is AppResponse) {
+      return response;
+    } else if (response is Map) {
+      if (response["errorCode"] == 0) {
+        return AppResponse.success(response["data"]);
+      } else {
+        return AppResponse.failure(errorMsg: response["errorMsg"]?.toString());
+      }
+    } else {
+      return AppResponse.failure();
+    }
   }
 }

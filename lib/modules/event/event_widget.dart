@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/data/constants.dart';
 import 'package:todo/data/model/task_entity.dart';
+import 'package:todo/theme/app_theme.dart';
 
 class EventWidget extends StatelessWidget {
   final List<TaskEntity> list = [

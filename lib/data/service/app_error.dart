@@ -11,11 +11,17 @@ enum AppErrorType {
   timeout,
   server,
   unknown,
+  custom,
 }
 
 class AppError {
   String message;
   AppErrorType type;
+
+  AppError.cunstom([String msg]) {
+    message = msg ?? '未知异常';
+    type = AppErrorType.custom;
+  }
 
   AppError(Exception error) {
     if (error is DioError) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo/modules/event/event_widget.dart';
-import 'package:todo/modules/task/task_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override

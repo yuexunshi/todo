@@ -23,10 +23,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cookie_jar: ^1.0.1
   cupertino_icons: ^1.0.0
   dio: ^3.0.10
+  dio_cookie_manager: ^1.0.0
   dio_http_cache: ^0.2.11
   get: ^3.21.2
+  path: ^1.7.0
+  path_provider: ^1.6.24
   shared_preferences: ^0.5.12+4
 
 dev_dependencies:
@@ -42,10 +46,15 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/3.0x/
+  # assets-generator-begin
+  # assets/images/3.0x/*
+    - assets/images/3.0x/splash.png
+  # assets-generator-end
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

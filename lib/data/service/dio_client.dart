@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:cookie_jar/cookie_jar.dart';
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/foundation.dart';
 
 const _defaultConnectTimeout = Duration.millisecondsPerMinute;
@@ -17,17 +20,20 @@ class DioClient {
     this.baseUrl,
     Dio dio, {
     this.interceptors,
+    String cookiesPath,
   }) {
     _dio = dio ?? Dio();
+
     _dio
       ..options.baseUrl = baseUrl
       ..options.connectTimeout = _defaultConnectTimeout
       ..options.receiveTimeout = _defaultReceiveTimeout
       ..httpClientAdapter
       ..options.headers = {'Content-Type': 'application/json; charset=UTF-8'};
-    if (interceptors?.isNotEmpty ?? false) {
-      _dio.interceptors.addAll(interceptors);
-    }
+
+    //Cookie管理
+    dio.interceptors.add(CookieManager(PersistCookieJar(dir: cookiesPath)));
+
     if (kDebugMode) {
       _dio.interceptors.add(LogInterceptor(
           responseBody: true,
@@ -37,6 +43,21 @@ class DioClient {
           request: false,
           requestBody: false));
     }
+    if (interceptors?.isNotEmpty ?? false) {
+      _dio.interceptors.addAll(interceptors);
+    }
+  }
+
+  setProxy(String proxy) {
+    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+      // config the http client
+      client.findProxy = (uri) {
+        //proxy all request to localhost:8888
+        return "PROXY $proxy";
+      };
+      // you can also create a HttpClient to dio
+      // return HttpClient();
+    };
   }
 
   Future<dynamic> get(
