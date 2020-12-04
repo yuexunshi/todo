@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todo/modules/event/event_widget.dart';
+import 'package:todo/modules/home/event_widget.dart';
+import 'package:todo/modules/home/task_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -59,7 +60,7 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: _buildButton(context),
         ),
-        Expanded(child: EventWidget()),
+        Expanded(child: TaskWidget()),
       ],
     );
   }

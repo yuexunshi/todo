@@ -5,7 +5,6 @@ import 'package:todo/modules/login/components/round_paaword_field.dart';
 import 'package:todo/modules/login/components/rounded_button.dart';
 import 'package:todo/modules/login/components/rounded_input_field.dart';
 import 'package:todo/routes/app_pages.dart';
-import 'package:todo/theme/app_theme.dart';
 import '../sign_up_controller.dart';
 
 class Body extends GetView<SignUpController> {
@@ -15,24 +14,34 @@ class Body extends GetView<SignUpController> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: context.width,
-          child: Stack(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                child:
-                    Text('SIGNUP', style: Theme.of(context).textTheme.headline2.copyWith(fontWeight: FontWeight.bold)),
+          width: Get.width,
+          padding: EdgeInsets.fromLTRB(15.0, 115.0, 0.0, 0.0),
+          child: Text('Create',
+              style: Theme.of(context).textTheme.headline2.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor,
+                  )),
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 0.0),
+              child: Text('Account',
+                  style: Theme.of(context).textTheme.headline2.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor,
+                      )),
+            ),
+            Container(
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).primaryColorLight,
               ),
-              Container(
-                padding: EdgeInsets.fromLTRB(16.0, 175.0, 0.0, 0.0),
-                child: Text('NOW', style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold)),
-              ),
-              Container(
-                padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
-                child: Text('.', style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold, color: Colors.green)),
-              )
-            ],
-          ),
+            )
+          ],
         ),
         SizedBox(
           height: 60,

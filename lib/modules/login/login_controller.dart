@@ -1,20 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 import 'package:todo/data/model/login_bean.dart';
-import 'package:todo/data/providers/login_model_provider.dart';
+import 'package:todo/data/local/local_login_model_reposity.dart';
 import 'package:todo/data/repositories/login_repository.dart';
-import 'package:todo/data/service/app_response.dart';
 import 'package:todo/routes/app_pages.dart';
 import 'package:todo/widgets/loading_dialog.dart';
 
 class LoginController extends GetxController {
-  final LoginRepository repository;
+  final LoginRepository repository = Get.find<LoginRepository>();
   String _username;
   String _password;
-  LoginController({
-    @required this.repository,
-  }) : assert(repository != null);
 
   void onUsernameChanged(String username) {
     _username = username;
@@ -35,13 +29,13 @@ class LoginController extends GetxController {
       return;
     }
     Get.loading();
-    AppResponse result = await repository.login(_username, _password);
-    Get.dismiss();
-
-    if (result.ok) {
-      LoginBean bean = LoginBean.fromJson(result.data);
-      LoginModelProvider.saveLoginModel(bean);
+    try {
+      LoginBean bean = await repository.login(_username, _password);
+      LocalLoginModelRepository.saveLoginModel(bean);
       Get.offAllNamed(Routes.HOME);
-    } else {}
+    } catch (e) {
+      Get.snackbar('Error', e.message ?? "登录失败");
+    }
+    Get.dismiss();
   }
 }

@@ -1,22 +1,15 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:todo/data/providers/app_sp_service.dart';
-import 'package:todo/data/service/app_dio.dart';
-import 'package:todo/data/service/interceptor/response_interceptor.dart';
+import 'package:todo/data/providers/dio_config_service.dart';
+import 'package:todo/data/remote/dio_client.dart';
 
+typedef InjectFutureFunction = Future<void> Function();
+
+/// 依赖注入
 class DenpendencyInjection {
-  static init() async {
-    await initDio();
+  static Future<void> init() async {
     await Get.putAsync(() => AppSpController().init());
-  }
-
-  static initDio() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String cookiesPath = join(appDocDir.path, ".cookies/");
-    AppDio.init('https://www.wanandroid.com',
-        proxy: '192.168.62.10:8888', interceptors: [ResponseInterceptors()], cookiesPath: cookiesPath);
+    await Get.putAsync(() => DioConfigController().init());
+    Get.put(() => DioClient());
   }
 }

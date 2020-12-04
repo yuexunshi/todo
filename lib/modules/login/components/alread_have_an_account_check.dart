@@ -16,13 +16,13 @@ class AlreadHaveAnAccoutCheck extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          login ? "" : "Already have a Accont ? ",
+          login ? "Forget Password？" : "Already have a Accont ? ",
           style: TextStyle(color: kPrimaryColor),
         ),
         GestureDetector(
           onTap: onTap,
           child: Text(
-            login ? 'Forgot password?' : "Sign in",
+            login ? 'Reset password' : "Sign in",
             style: TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold),
           ),
         )

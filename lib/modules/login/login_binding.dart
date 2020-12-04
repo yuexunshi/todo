@@ -6,8 +6,10 @@ import 'package:todo/modules/login/login_controller.dart';
 class LoginPageBinding implements Bindings {
   @override
   void dependencies() {
+    Get.lazyPut(() => LoginApi());
+    Get.lazyPut(() => LoginRepository());
     Get.lazyPut<LoginController>(
-      () => LoginController(repository: LoginRepository(api: LoginApi())),
+      () => LoginController(),
     );
   }
 }
