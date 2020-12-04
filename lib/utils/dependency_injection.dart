@@ -10,6 +10,6 @@ class DenpendencyInjection {
   static Future<void> init() async {
     await Get.putAsync(() => AppSpController().init());
     await Get.putAsync(() => DioConfigController().init());
-    Get.put(() => DioClient());
+    Get.put(DioClient());
   }
 }

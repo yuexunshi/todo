@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 import 'package:todo/data/remote/app_dio.dart';
 import 'package:todo/data/remote/app_response.dart';
 
 class DioClient {
-  AppDio _dio = Get.find<AppDio>();
+  AppDio _dio = AppDio.getInstance();
   Future<AppResponse> get(
     String uri, {
     Map<String, dynamic> queryParameters,
