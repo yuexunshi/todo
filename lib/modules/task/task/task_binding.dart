@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:todo/modules/task/task_controller.dart';
+
+import 'task_controller.dart';
 
 class TaskBinding implements Bindings {
   @override

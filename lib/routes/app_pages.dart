@@ -7,9 +7,10 @@ import 'package:todo/modules/singinup/sign_up_binding.dart';
 import 'package:todo/modules/singinup/sign_up_page.dart';
 import 'package:todo/modules/splash/splash_binding.dart';
 import 'package:todo/modules/splash/splash_page.dart';
-import 'package:todo/modules/home/task_widget.dart';
-import 'package:todo/modules/task/task_binding.dart';
-import 'package:todo/modules/task/task_page.dart';
+import 'package:todo/modules/task/add/add_task_binding.dart';
+import 'package:todo/modules/task/add/add_task_page.dart';
+import 'package:todo/modules/task/task/task_binding.dart';
+import 'package:todo/modules/task/task/task_page.dart';
 part './app_routes.dart';
 
 abstract class AppPages {
@@ -42,6 +43,11 @@ abstract class AppPages {
       name: Routes.TASK,
       page: () => TaskPage(),
       binding: TaskBinding(),
+    ),
+    GetPage(
+      name: Routes.TASK_ADD,
+      page: () => AddTaskPage(),
+      binding: AddTaskBinding(),
     ),
   ];
 }

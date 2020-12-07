@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:todo/modules/task/task_binding.dart';
+import 'package:todo/modules/task/task/task_binding.dart';
 import 'package:todo/routes/app_pages.dart';
 
 class TaskController extends GetxController {

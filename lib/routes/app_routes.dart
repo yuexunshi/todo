@@ -7,4 +7,5 @@ abstract class Routes {
   static const HOME = '/home';
   static const SIGN_UP = '/sign_up';
   static const TASK = '/task';
+  static const TASK_ADD = '/task-add';
 }
