@@ -31,11 +31,12 @@ class LoginController extends GetxController {
     Get.loading();
     try {
       LoginBean bean = await repository.login(_username, _password);
+      Get.dismiss();
       LocalLoginModelRepository.saveLoginModel(bean);
-      Get.offAllNamed(Routes.HOME);
+      Get.offAllNamed(Routes.TASK);
     } catch (e) {
+      Get.dismiss();
       Get.snackbar('Error', e.message ?? "登录失败");
     }
-    Get.dismiss();
   }
 }

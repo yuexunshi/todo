@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:todo/data/model/task_bean.dart';
 import '../task_controller.dart';
 import 'round_check_box.dart';
 
@@ -38,6 +39,7 @@ class Body extends GetView<TaskController> {
   }
 
   Widget _buildRow(BuildContext context, int index) {
+    TaskBean task = controller.tasks[index];
     return Row(
       children: [
         Container(
@@ -53,8 +55,11 @@ class Body extends GetView<TaskController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Text Title", style: Theme.of(context).textTheme.headline6),
-            Text("Text subTitle"),
+            Text(task.title, style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
+            SizedBox(
+              height: 5,
+            ),
+            Text(task.dateStr),
           ],
         ),
         Spacer(),
@@ -69,10 +74,15 @@ class Body extends GetView<TaskController> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return _buildItem(context, index);
+    return GetBuilder<TaskController>(
+      init: controller,
+      builder: (_) {
+        return ListView.builder(
+          itemCount: _.tasks.length,
+          itemBuilder: (context, index) {
+            return _buildItem(context, index);
+          },
+        );
       },
     );
   }

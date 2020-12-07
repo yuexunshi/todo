@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
 class ErrorInterceptors extends InterceptorsWrapper {
-  final Dio _dio;
+  // final Dio _dio;
 
-  ErrorInterceptors(this._dio);
+  // ErrorInterceptors(this._dio);
 
   @override
   onRequest(RequestOptions options) async {

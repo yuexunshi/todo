@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:todo/data/model/task_entity.dart';
+import 'package:todo/data/model/task_bean.dart';
 import 'package:todo/theme/app_theme.dart';
 
 class EventWidget extends StatelessWidget {
-  final List<TaskEntity> list = [
-    TaskEntity(title: "我的第一个任务", status: 0),
-    TaskEntity(title: "我的第二个任务", status: 0),
-    TaskEntity(title: "我的第三个任务", status: 0),
-    TaskEntity(title: "我的第四个任务", status: 0),
-    TaskEntity(title: "我的第五个任务", status: 1),
-    TaskEntity(title: "我的第六个任务", status: 1),
+  final List<TaskBean> list = [
+    TaskBean(title: "我的第一个任务", status: 0),
+    TaskBean(title: "我的第二个任务", status: 0),
+    TaskBean(title: "我的第三个任务", status: 0),
+    TaskBean(title: "我的第四个任务", status: 0),
+    TaskBean(title: "我的第五个任务", status: 1),
+    TaskBean(title: "我的第六个任务", status: 1),
   ];
 
   @override

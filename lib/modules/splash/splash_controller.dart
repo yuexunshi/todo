@@ -9,6 +9,6 @@ class SplashController extends GetxController {
     super.onReady();
     await GloabConfig.init();
     await DenpendencyInjection.init();
-    Get.offNamed(Routes.TASK);
+    Get.offNamed(Routes.LOGIN);
   }
 }

@@ -1,4 +1,4 @@
-class TaskEntity {
+class TaskBean {
 /*
 {
   "completeDate": 1606665600000,
@@ -27,7 +27,7 @@ class TaskEntity {
   int type;
   int userId;
 
-  TaskEntity({
+  TaskBean({
     this.completeDate,
     this.completeDateStr,
     this.content,
@@ -40,7 +40,7 @@ class TaskEntity {
     this.type,
     this.userId,
   });
-  TaskEntity.fromJson(Map<String, dynamic> json) {
+  TaskBean.fromJson(Map<String, dynamic> json) {
     completeDate = json["completeDate"]?.toInt();
     completeDateStr = json["completeDateStr"]?.toString();
     content = json["content"]?.toString();
