@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo/modules/home/event_widget.dart';
 import 'package:todo/modules/home/task_widget.dart';
 
 class HomePage extends StatelessWidget {

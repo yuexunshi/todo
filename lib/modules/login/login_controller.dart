@@ -3,7 +3,7 @@ import 'package:todo/data/model/login_bean.dart';
 import 'package:todo/data/local/local_login_model_reposity.dart';
 import 'package:todo/data/repositories/login_repository.dart';
 import 'package:todo/routes/app_pages.dart';
-import 'package:todo/widgets/loading_dialog.dart';
+import 'package:todo/utils/extension/get_extension.dart';
 
 class LoginController extends GetxController {
   final LoginRepository repository = Get.find<LoginRepository>();
@@ -11,11 +11,11 @@ class LoginController extends GetxController {
   String _password;
 
   void onUsernameChanged(String username) {
-    _username = username;
+    _username = username.trim();
   }
 
   void onPasswordChanged(String password) {
-    _password = password;
+    _password = password.trim();
   }
 
   sumit() async {

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:todo/data/model/task_bean.dart';
 import '../task_controller.dart';
 import 'round_check_box.dart';
 
 class Body extends GetView<TaskController> {
+  final SlidableController slidableController = SlidableController();
+
   Widget _buildItem(BuildContext context, int index) {
     return Slidable(
+      controller: slidableController,
       actionPane: SlidableDrawerActionPane(),
       actionExtentRatio: 0.2,
       child: Container(
@@ -55,11 +59,21 @@ class Body extends GetView<TaskController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(task.title, style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
+            Text(
+              task.title,
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    fontSize: 18,
+                    decoration: task.status == 1 ? TextDecoration.lineThrough : TextDecoration.none,
+                  ),
+            ),
             SizedBox(
               height: 5,
             ),
-            Text(task.dateStr),
+            Text(task.dateStr,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      fontSize: 14,
+                      decoration: task.status == 1 ? TextDecoration.lineThrough : TextDecoration.none,
+                    )),
           ],
         ),
         Spacer(),
@@ -77,11 +91,19 @@ class Body extends GetView<TaskController> {
     return GetBuilder<TaskController>(
       init: controller,
       builder: (_) {
-        return ListView.builder(
-          itemCount: _.tasks.length,
-          itemBuilder: (context, index) {
-            return _buildItem(context, index);
-          },
+        return SmartRefresher(
+          header: MaterialClassicHeader(),
+          controller: _.refreshController,
+          enablePullDown: true,
+          enablePullUp: true,
+          onLoading: _.onLoadMore,
+          onRefresh: _.onRefresh,
+          child: ListView.builder(
+            itemCount: _.tasks.length,
+            itemBuilder: (context, index) {
+              return _buildItem(context, index);
+            },
+          ),
         );
       },
     );

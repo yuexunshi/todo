@@ -1,45 +1,46 @@
 import 'package:get/get_state_manager/get_state_manager.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:todo/data/model/priority.dart';
 import '../add_task_controller.dart';
 
 class Body extends GetView<AddTaskController> {
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: controller.formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          _buildTitleField(
-            context,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            'More:',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          _buildDescriptionField(context),
-          SizedBox(
-            height: 20,
-          ),
-          _buildDateTimeField(context),
-          SizedBox(
-            height: 20,
-          ),
-          _buildPriorityField(context),
-          _buildSubmit(context),
-        ],
+    return SingleChildScrollView(
+      child: Form(
+        key: controller.formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            _buildTitleField(
+              context,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'More:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            _buildDescriptionField(context),
+            SizedBox(
+              height: 20,
+            ),
+            _buildDateTimeField(context),
+            SizedBox(
+              height: 20,
+            ),
+            _buildPriorityField(context),
+            _buildSubmit(context),
+          ],
+        ),
       ),
     );
   }
@@ -61,7 +62,6 @@ class Body extends GetView<AddTaskController> {
   Widget _buildDescriptionField(BuildContext context) {
     return TextFormField(
       style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
-      validator: (value) => value.trim().isEmpty ? 'Please enter a task title' : null,
       onSaved: controller.saveContent,
       maxLines: 6,
       decoration: InputDecoration(
@@ -109,13 +109,15 @@ class Body extends GetView<AddTaskController> {
               labelText: 'Priority',
               labelStyle: TextStyle(fontSize: 18),
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
-          items: _.priorities.keys.map((e) {
+          items: prioritiesStr.map((e) {
             return DropdownMenuItem(
               value: e,
-              child: Text(e, style: Theme.of(context).textTheme.subtitle1.copyWith(color: _.priorities[e])),
+              child: Text(e,
+                  style:
+                      Theme.of(context).textTheme.subtitle1.copyWith(color: priorityColor[prioritiesStr.indexOf(e)])),
             );
           }).toList(),
-          value: _.priority,
+          value: prioritiesStr[0],
           onChanged: _.changePriority,
         );
       },
