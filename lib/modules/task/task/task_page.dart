@@ -24,7 +24,9 @@ class TaskPage extends GetView<TaskController> {
           children: [
             IconButton(
               icon: Icon(Icons.settings),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.TASK_MOTHLY);
+              },
             ),
             IconButton(
               icon: Icon(Icons.more_vert),

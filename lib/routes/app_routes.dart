@@ -8,4 +8,6 @@ abstract class Routes {
   static const SIGN_UP = '/sign_up';
   static const TASK = '/task';
   static const TASK_ADD = '/task-add';
+  static const TASK_EDIT = '/task-edit';
+  static const TASK_MOTHLY = '/task-mothly';
 }

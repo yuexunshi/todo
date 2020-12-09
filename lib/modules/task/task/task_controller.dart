@@ -69,6 +69,11 @@ class TaskController extends GetxController {
     update();
   }
 
+  updateTask(TaskBean task) {
+    // _tasks.firstWhere((e) => e.id == task.id);
+    update();
+  }
+
   go() {
     Get.offAllNamed(Routes.LOGIN);
   }

@@ -9,6 +9,10 @@ import 'package:todo/modules/splash/splash_binding.dart';
 import 'package:todo/modules/splash/splash_page.dart';
 import 'package:todo/modules/task/add/add_task_binding.dart';
 import 'package:todo/modules/task/add/add_task_page.dart';
+import 'package:todo/modules/task/edit/edit_task_binding.dart';
+import 'package:todo/modules/task/edit/edit_task_page.dart';
+import 'package:todo/modules/task/monthly/monthly_binding.dart';
+import 'package:todo/modules/task/monthly/monthly_page.dart';
 import 'package:todo/modules/task/task/task_binding.dart';
 import 'package:todo/modules/task/task/task_page.dart';
 part './app_routes.dart';
@@ -48,6 +52,17 @@ abstract class AppPages {
       name: Routes.TASK_ADD,
       page: () => AddTaskPage(),
       binding: AddTaskBinding(),
+    ),
+
+    GetPage(
+      name: Routes.TASK_EDIT,
+      page: () => EditTaskPage(),
+      binding: EditTaskBinding(),
+    ),
+    GetPage(
+      name: Routes.TASK_MOTHLY,
+      page: () => MonthlyPage(),
+      binding: MonthlyBinding(),
     ),
   ];
 }
