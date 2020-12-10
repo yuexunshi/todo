@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-09 20:10:32
+ * @LastEditTime: 2020-12-09 23:18:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/modules/task/task/task_page.dart
+ */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo/modules/task/task/task_controller.dart';
@@ -23,13 +31,13 @@ class TaskPage extends GetView<TaskController> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.calendar_today_sharp),
               onPressed: () {
                 Get.toNamed(Routes.TASK_MOTHLY);
               },
             ),
             IconButton(
-              icon: Icon(Icons.more_vert),
+              icon: Icon(Icons.settings),
               onPressed: () {},
             ),
           ],

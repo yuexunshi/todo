@@ -1,14 +1,31 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-08 20:57:12
+ * @LastEditTime: 2020-12-09 21:18:13
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/routes/app_pages.dart
+ */
+/*
+ * @Author: your name
+ * @Date: 2020-12-08 20:57:12
+ * @LastEditTime: 2020-12-08 21:23:35
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/routes/app_pages.dart
+ */
 import 'package:get/get.dart';
 import 'package:todo/modules/home/home_binding.dart';
 import 'package:todo/modules/home/home_page.dart';
 import 'package:todo/modules/login/login_binding.dart';
 import 'package:todo/modules/login/login_page.dart';
-import 'package:todo/modules/singinup/sign_up_binding.dart';
-import 'package:todo/modules/singinup/sign_up_page.dart';
+import 'package:todo/modules/signup/sign_up_binding.dart';
+import 'package:todo/modules/signup/sign_up_page.dart';
 import 'package:todo/modules/splash/splash_binding.dart';
 import 'package:todo/modules/splash/splash_page.dart';
 import 'package:todo/modules/task/add/add_task_binding.dart';
 import 'package:todo/modules/task/add/add_task_page.dart';
+import 'package:todo/modules/task/details/task_details.dart';
 import 'package:todo/modules/task/edit/edit_task_binding.dart';
 import 'package:todo/modules/task/edit/edit_task_page.dart';
 import 'package:todo/modules/task/monthly/monthly_binding.dart';
@@ -52,6 +69,10 @@ abstract class AppPages {
       name: Routes.TASK_ADD,
       page: () => AddTaskPage(),
       binding: AddTaskBinding(),
+    ),
+    GetPage(
+      name: Routes.TASK_DETAILS,
+      page: () => TaskDetailsPage(),
     ),
 
     GetPage(

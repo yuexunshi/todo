@@ -77,8 +77,8 @@ class Body extends GetView<LoginController> {
           height: 24,
         ),
         RoundedButton(
-          text: 'SIGN UP',
-          onPressed: () => Get.toNamed(Routes.SIGN_UP),
+          text: 'SKIP SIGN',
+          onPressed: () => Get.toNamed(Routes.TASK),
         ),
       ],
     );

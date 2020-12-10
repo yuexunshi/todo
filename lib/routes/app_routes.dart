@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-09 20:10:32
+ * @LastEditTime: 2020-12-09 21:17:59
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/routes/app_routes.dart
+ */
 part of './app_pages.dart';
 
 abstract class Routes {
@@ -10,4 +18,5 @@ abstract class Routes {
   static const TASK_ADD = '/task-add';
   static const TASK_EDIT = '/task-edit';
   static const TASK_MOTHLY = '/task-mothly';
+  static const TASK_DETAILS = '/task-details';
 }

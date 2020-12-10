@@ -1,10 +1,17 @@
+/*
+ * @Author: your name
+ * @Date: 2020-12-08 20:57:12
+ * @LastEditTime: 2020-12-11 00:11:28
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/utils/dependency_injection.dart
+ */
 import 'package:get/get.dart';
 import 'package:todo/data/providers/app_sp_service.dart';
 import 'package:todo/data/providers/dio_config_service.dart';
 import 'package:todo/data/providers/login_provider.dart';
+import 'package:todo/data/providers/task_dao_service.dart';
 import 'package:todo/data/remote/dio_client.dart';
-
-typedef InjectFutureFunction = Future<void> Function();
 
 /// 依赖注入
 class DenpendencyInjection {
@@ -17,5 +24,7 @@ class DenpendencyInjection {
     Get.put(DioClient());
     // 登录信息提供者
     Get.put(LoginProvider());
+    // 数据库
+    Get.put(TaskDaoController());
   }
 }

@@ -31,6 +31,7 @@ dependencies:
   dio_http_cache: ^0.2.11
   flutter_slidable: ^0.5.7
   get: ^3.21.2
+  google_fonts: ^1.1.1
   moor: ^3.4.0
   path: ^1.7.0
   path_provider: ^1.6.24
