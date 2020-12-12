@@ -8,29 +8,29 @@ part of 'task_database.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class Task extends DataClass implements Insertable<Task> {
-  final int completeDate;
-  final String completeDateStr;
-  final String content;
-  final int date;
-  final String dateStr;
-  final int id;
-  final int priority;
-  final int status;
-  final String title;
-  final int type;
-  final int userId;
+  int completeDate;
+  String completeDateStr;
+  String content;
+  int date;
+  String dateStr;
+  int id;
+  int priority;
+  int status;
+  String title;
+  int type;
+  int userId;
   Task(
       {this.completeDate,
       this.completeDateStr,
       this.content,
-      @required this.date,
-      @required this.dateStr,
+      this.date,
+      this.dateStr,
       @required this.id,
-      @required this.priority,
-      @required this.status,
+      this.priority,
+      this.status,
       @required this.title,
-      @required this.type,
-      @required this.userId});
+      this.type,
+      this.userId});
   factory Task.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -277,9 +277,8 @@ class TasksCompanion extends UpdateCompanion<Task> {
     this.status = const Value.absent(),
     @required String title,
     this.type = const Value.absent(),
-    @required int userId,
-  })  : title = Value(title),
-        userId = Value(userId);
+    this.userId = const Value.absent(),
+  }) : title = Value(title);
   static Insertable<Task> custom({
     Expression<int> completeDate,
     Expression<String> completeDateStr,
@@ -517,7 +516,7 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
     return GeneratedIntColumn(
       'user_id',
       $tableName,
-      false,
+      true,
     );
   }
 
@@ -594,8 +593,6 @@ class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
     if (data.containsKey('user_id')) {
       context.handle(_userIdMeta,
           userId.isAcceptableOrUnknown(data['user_id'], _userIdMeta));
-    } else if (isInserting) {
-      context.missing(_userIdMeta);
     }
     return context;
   }

@@ -1,6 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:53:52
+ * @LastEditTime: 2020-12-12 13:52:05
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /todo/lib/modules/task/details/task_details.dart
+ */
+/*
+ * @Author: your name
+ * @Date: 2020-12-09 20:53:52
  * @LastEditTime: 2020-12-09 22:11:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
@@ -8,8 +16,8 @@
  */
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/data/db/task_database.dart';
 import 'package:todo/data/model/priority.dart';
-import 'package:todo/data/model/task_bean.dart';
 
 class TaskDetailsPage extends StatelessWidget {
   final Color color1 = Color(0xFFc44dff);
@@ -18,7 +26,7 @@ class TaskDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TaskBean task = Get.arguments;
+    Task task = Get.arguments;
     return Scaffold(
         appBar: AppBar(title: Text('TaskDetailsPage')),
         body: SingleChildScrollView(
@@ -26,53 +34,49 @@ class TaskDetailsPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildHeader(context),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 40),
-                  child: Text('Title:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          .copyWith(color: Colors.black))),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 8),
-                  child: Text(task.title,
-                      style: Theme.of(context).textTheme.subtitle1)),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 20),
-                  child: Text('Description:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: Colors.black))),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 8),
-                  child: Text(task.content ?? '',
-                      style: Theme.of(context).textTheme.subtitle1)),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 20),
-                  child: Text('Date:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: Colors.black))),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 8),
-                  child: Text(task.dateStr ?? '',
-                      style: Theme.of(context).textTheme.subtitle1)),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 20),
-                  child: Text('Priority:',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline5
-                          .copyWith(color: Colors.black))),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 8),
-                  child: Text(prioritiesStr[task.priority],
-                      style: Theme.of(context).textTheme.subtitle1)),
+              _buildKey(context, 'Title:'),
+              _buildValue(context, task.title),
+              _buildKey(context, 'Description:'),
+              _buildValue(context, task.content),
+              _buildKey(context, 'Date:'),
+              _buildValue(context, task.dateStr),
+              _buildKey(context, 'Priority:'),
+              _buildValue(context, prioritiesStr[task.priority]),
+              _buildKey(context, '进度:'),
+              _buildValue(context, task.status == 0 ? '未完成' : '已完成'),
             ],
           ),
         ));
+  }
+
+  Widget _buildValue(
+    BuildContext context,
+    String value,
+  ) {
+    return Container(
+        width: double.infinity,
+        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          border: Border.all(
+              color: Theme.of(context).primaryColor, width: 1), // 边色与边宽度
+          //        borderRadius: new BorderRadius.circular((20.0)), // 圆角度
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        child: Text(value ?? '', style: Theme.of(context).textTheme.subtitle1));
+  }
+
+  Widget _buildKey(
+    BuildContext context,
+    String value,
+  ) {
+    return Container(
+        margin: EdgeInsets.only(left: 20, top: 0),
+        child: Text(value,
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(color: Colors.black)));
   }
 
   Widget _buildHeader(BuildContext context) {

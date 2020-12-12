@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:10:32
- * @LastEditTime: 2020-12-09 22:52:15
+ * @LastEditTime: 2020-12-12 15:36:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/modules/task/task/components/body.dart
@@ -10,16 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:todo/data/model/task_bean.dart';
+import 'package:todo/data/db/task_database.dart';
 import 'package:todo/modules/task/task/components/task_widget.dart';
 import 'package:todo/routes/app_pages.dart';
+import 'package:todo/widgets/start_card.dart';
 import '../task_controller.dart';
 
 class Body extends GetView<TaskController> {
   final SlidableController slidableController = SlidableController();
 
   Widget _buildItem(BuildContext context, int index) {
-    TaskBean task = controller.tasks[index];
+    Task task = controller.tasks[index];
     return Slidable(
       controller: slidableController,
       actionPane: SlidableDrawerActionPane(),
@@ -62,12 +63,14 @@ class Body extends GetView<TaskController> {
           enablePullUp: true,
           onLoading: _.onLoadMore,
           onRefresh: _.onRefresh,
-          child: ListView.builder(
-            itemCount: _.tasks.length,
-            itemBuilder: (context, index) {
-              return _buildItem(context, index);
-            },
-          ),
+          child: _.tasks.isEmpty
+              ? TaskCardWidget()
+              : ListView.builder(
+                  itemCount: _.tasks.length,
+                  itemBuilder: (context, index) {
+                    return _buildItem(context, index);
+                  },
+                ),
         );
       },
     );

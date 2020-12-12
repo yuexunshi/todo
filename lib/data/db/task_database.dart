@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 20:57:12
- * @LastEditTime: 2020-12-10 23:08:01
+ * @LastEditTime: 2020-12-12 10:48:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/data/db/task_database.dart
@@ -28,22 +28,22 @@ class Tasks extends Table {
 
   // 为空自动生成默认值
   TextColumn get dateStr =>
-      text().clientDefault(() => DateTime.now().format())();
+      text().nullable().clientDefault(() => DateTime.now().format())();
 
   // 主键
-  IntColumn get id => integer().autoIncrement()();
+  IntColumn get id => integer().nullable().autoIncrement()();
 
   // 为空自动生成默认值
-  IntColumn get priority => integer().withDefault(Constant(0))();
+  IntColumn get priority => integer().nullable().withDefault(Constant(0))();
 
   // 为空自动生成默认值
-  IntColumn get status => integer().withDefault(Constant(0))();
+  IntColumn get status => integer().nullable().withDefault(Constant(0))();
 
-  // 为空自动生成默认值
   TextColumn get title => text()();
 
   IntColumn get type => integer().withDefault(Constant(0))();
-  IntColumn get userId => integer()();
+
+  IntColumn get userId => integer().nullable()();
 }
 
 @UseMoor(tables: [Tasks], daos: [TaskDao])

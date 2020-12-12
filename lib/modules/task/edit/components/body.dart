@@ -88,8 +88,6 @@ class Body extends GetView<EditTaskController> {
           onTap: _.handleDatePicker,
           controller: _.dateTimeController,
           style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
-          validator: (value) =>
-              value.trim().isEmpty ? 'Please enter atask title' : null,
           decoration: InputDecoration(
               labelText: 'DateTime',
               labelStyle: TextStyle(fontSize: 18),

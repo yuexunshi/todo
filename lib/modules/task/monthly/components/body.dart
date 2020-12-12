@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:10:32
- * @LastEditTime: 2020-12-09 23:13:36
+ * @LastEditTime: 2020-12-12 14:00:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/modules/task/monthly/components/body.dart
@@ -48,21 +48,27 @@ class Body extends GetView<MonthlyController> {
                       style: Theme.of(context).textTheme.headline5.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold)),
                   Expanded(
-                    child: GetBuilder<MonthlyController>(initState: (state) {
-                      controller.getTasks();
-                    }, builder: (_) {
+                    child: GetBuilder<MonthlyController>(builder: (_) {
                       return ListView.builder(
                         itemCount: controller.tasks.length,
                         itemBuilder: (context, index) {
                           var task = controller.tasks[index];
-                          return TaskWidget(
-                            task: task,
-                            onItemClick: () => Get.toNamed(Routes.TASK_DETAILS,
-                                arguments: task),
-                            onCheckBoxChanged: (b) {
-                              task.status = b ? 1 : 0;
-                              controller.modifyTaskStatus(task);
-                            },
+                          return Container(
+                            margin: EdgeInsets.only(top: 10, right: 20),
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: TaskWidget(
+                              task: task,
+                              onItemClick: () => Get.toNamed(
+                                  Routes.TASK_DETAILS,
+                                  arguments: task),
+                              onCheckBoxChanged: (b) {
+                                task.status = b ? 1 : 0;
+                                controller.modifyTaskStatus(task);
+                              },
+                            ),
                           );
                         },
                       );
@@ -71,14 +77,6 @@ class Body extends GetView<MonthlyController> {
                 ],
               )),
         )
-        // Expanded(
-        //     child: ListView.builder(
-        //       itemCount: _.tasks.length,
-        //       itemBuilder: (context, index) {
-        //         return _buildItem(context, index);
-        //       },
-        //     ),
-        //     ),
       ],
     );
   }

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 20:57:12
- * @LastEditTime: 2020-12-11 00:11:28
+ * @LastEditTime: 2020-12-11 01:38:08
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/utils/dependency_injection.dart
@@ -25,6 +25,6 @@ class DenpendencyInjection {
     // 登录信息提供者
     Get.put(LoginProvider());
     // 数据库
-    Get.put(TaskDaoController());
+    Get.put(TaskDaoController().init());
   }
 }

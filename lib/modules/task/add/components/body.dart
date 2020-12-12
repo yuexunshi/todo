@@ -49,7 +49,8 @@ class Body extends GetView<AddTaskController> {
   Widget _buildTitleField(BuildContext context) {
     return TextFormField(
       style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
-      validator: (value) => value.trim().isEmpty ? 'Please enter atask title' : null,
+      validator: (value) =>
+          value.trim().isEmpty ? 'Please enter atask title' : null,
       onSaved: controller.saveTitle,
       decoration: InputDecoration(
           labelText: 'Title',
@@ -68,7 +69,9 @@ class Body extends GetView<AddTaskController> {
           labelText: 'Description',
           hintText: 'Add description here',
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)))),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15)))),
     );
   }
 
@@ -78,16 +81,17 @@ class Body extends GetView<AddTaskController> {
       init: controller,
       id: controller.updateDateId,
       builder: (_) {
+        print(" _.dateTimeControlle==${_.dateTimeController}");
         return TextFormField(
           readOnly: true,
           onTap: _.handleDatePicker,
           controller: _.dateTimeController,
           style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 18),
-          validator: (value) => value.trim().isEmpty ? 'Please enter atask title' : null,
           decoration: InputDecoration(
               labelText: 'DateTime',
               labelStyle: TextStyle(fontSize: 18),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
         );
       },
     );
@@ -108,13 +112,14 @@ class Body extends GetView<AddTaskController> {
           decoration: InputDecoration(
               labelText: 'Priority',
               labelStyle: TextStyle(fontSize: 18),
-              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10))),
           items: prioritiesStr.map((e) {
             return DropdownMenuItem(
               value: e,
               child: Text(e,
-                  style:
-                      Theme.of(context).textTheme.subtitle1.copyWith(color: priorityColor[prioritiesStr.indexOf(e)])),
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      color: priorityColor[prioritiesStr.indexOf(e)])),
             );
           }).toList(),
           value: prioritiesStr[0],
@@ -129,10 +134,16 @@ class Body extends GetView<AddTaskController> {
       margin: EdgeInsets.symmetric(vertical: 30),
       height: 60,
       width: double.infinity,
-      decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(30)),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.circular(30)),
       child: FlatButton(
         onPressed: controller.submit,
-        child: Text('add task', style: Theme.of(context).textTheme.button.copyWith(color: Colors.white)),
+        child: Text('add task',
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Colors.white)),
       ),
     );
   }

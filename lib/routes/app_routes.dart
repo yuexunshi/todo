@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:10:32
- * @LastEditTime: 2020-12-09 21:17:59
- * @LastEditors: your name
+ * @LastEditTime: 2020-12-12 14:37:10
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/routes/app_routes.dart
  */
@@ -13,6 +13,7 @@ abstract class Routes {
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
   static const HOME = '/home';
+  static const PROFILE = '/profile';
   static const SIGN_UP = '/sign_up';
   static const TASK = '/task';
   static const TASK_ADD = '/task-add';

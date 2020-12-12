@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:10:32
- * @LastEditTime: 2020-12-09 23:18:07
+ * @LastEditTime: 2020-12-13 01:38:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/modules/task/task/task_page.dart
@@ -16,7 +16,7 @@ class TaskPage extends GetView<TaskController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('TaskPage')),
+      appBar: AppBar(title: Text('My Task')),
       body: Body(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -38,7 +38,9 @@ class TaskPage extends GetView<TaskController> {
             ),
             IconButton(
               icon: Icon(Icons.settings),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.PROFILE);
+              },
             ),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo/data/db/task_database.dart';
 import 'package:todo/data/model/priority.dart';
-import 'package:todo/data/model/task_bean.dart';
 import 'package:todo/data/repositories/task_repository.dart';
 import 'package:todo/modules/task/task/task_controller.dart';
 import 'package:todo/utils/extension/date_extension.dart';
@@ -19,12 +19,12 @@ class AddTaskController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
   /// 日期
-  final dateTimeController = TextEditingController(text: DateTime.now().format());
+  final dateTimeController =
+      TextEditingController(text: DateTime.now().format());
 
   DateTime _dateTime;
   String _title;
   String _content;
-  String _date;
   int _priority;
 
   @override
@@ -35,7 +35,6 @@ class AddTaskController extends GetxController {
   }
 
   void saveTitle(String value) {
-    print('saveTitle=' + value);
     _title = value;
   }
 
@@ -49,11 +48,13 @@ class AddTaskController extends GetxController {
 
   void handleDatePicker() async {
     final datePick = await showDatePicker(
-        context: Get.context, firstDate: DateTime(2000), initialDate: _dateTime, lastDate: DateTime(2100));
+        context: Get.context,
+        firstDate: DateTime(2000),
+        initialDate: _dateTime,
+        lastDate: DateTime(2100));
     if (datePick != null && datePick != _dateTime) {
       _dateTime = datePick;
-      _date = _dateTime.format();
-      dateTimeController.text = _date;
+      dateTimeController.text = _dateTime.format();
       update([updateDateId]);
     }
   }
@@ -63,12 +64,14 @@ class AddTaskController extends GetxController {
       formKey.currentState.save();
       try {
         Get.loading();
-        TaskBean task = await _taskRepository.addTask(_title, content: _content, date: _date, priority: _priority);
+        Task task = await _taskRepository.addTask(_title,
+            content: _content, date: _dateTime.format(), priority: _priority);
         Get.dismiss();
         TaskController controller = Get.find<TaskController>();
         controller.addNewTask(task);
         Get.back();
       } catch (e) {
+        print('submit==$e');
         Get.dismiss();
         Get.snackbar('Error', e.toString());
       }

@@ -1,4 +1,4 @@
-import 'package:todo/data/model/task_bean.dart';
+import 'package:todo/data/db/task_database.dart';
 
 class TaskModel {
 /*
@@ -28,7 +28,7 @@ class TaskModel {
 */
 
   int curPage;
-  List<TaskBean> datas;
+  List<Task> datas;
   int offset;
   bool over;
   int pageCount;
@@ -48,9 +48,9 @@ class TaskModel {
     curPage = json["curPage"]?.toInt();
     if (json["datas"] != null) {
       var v = json["datas"];
-      var arr0 = List<TaskBean>();
+      var arr0 = List<Task>();
       v.forEach((v) {
-        arr0.add(TaskBean.fromJson(v));
+        arr0.add(Task.fromJson(v));
       });
       datas = arr0;
     }

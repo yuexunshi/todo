@@ -1,19 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2020-12-09 20:10:32
- * @LastEditTime: 2020-12-09 22:49:25
+ * @LastEditTime: 2020-12-12 13:26:24
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/modules/task/task/components/task_item.dart
  */
 import 'package:flutter/material.dart';
+import 'package:todo/data/db/task_database.dart';
 import 'package:todo/data/model/priority.dart';
-import 'package:todo/data/model/task_bean.dart';
 import 'package:todo/modules/task/task/components/round_check_box.dart';
 
 /// task 展示控件
 class TaskWidget extends StatelessWidget {
-  final TaskBean task;
+  final Task task;
   final VoidCallback onItemClick;
   final ValueChanged<bool> onCheckBoxChanged;
 

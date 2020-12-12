@@ -1,14 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-12-08 20:57:12
- * @LastEditTime: 2020-12-08 22:11:35
+ * @LastEditTime: 2020-12-12 15:33:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /todo/lib/modules/task/task/task_controller.dart
  */
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:todo/data/model/task_bean.dart';
+import 'package:todo/data/db/task_database.dart';
 import 'package:todo/data/model/task_model.dart';
 import 'package:todo/data/providers/login_provider.dart';
 import 'package:todo/data/repositories/task_repository.dart';
@@ -18,8 +18,8 @@ class TaskController extends GetxController {
   final RefreshController refreshController =
       RefreshController(initialRefresh: true);
   int _pageNum = 1;
-  List<TaskBean> _tasks = new List<TaskBean>();
-  get tasks => _tasks;
+  List<Task> _tasks = new List<Task>();
+  List<Task> get tasks => _tasks;
 
   final TaskRepository _taskRepository = Get.find<TaskRepository>();
 
@@ -28,7 +28,7 @@ class TaskController extends GetxController {
       TaskModel model = await _taskRepository.getTask(pageNum: _pageNum);
       return model;
     } catch (e) {
-      print(e.message);
+      print('_load' + e.toString());
       return null;
     }
   }
@@ -73,13 +73,8 @@ class TaskController extends GetxController {
     }
   }
 
-  addNewTask(TaskBean task) {
+  addNewTask(Task task) {
     _tasks.insert(0, task);
-    update();
-  }
-
-  updateTask(TaskBean task) {
-    // _tasks.firstWhere((e) => e.id == task.id);
     update();
   }
 
@@ -92,21 +87,30 @@ class TaskController extends GetxController {
         update();
       }
     } catch (e) {
-      print(e);
+      print('deleteTask' + e.toString());
     }
     Get.dismiss();
 
     // update();
   }
 
-  modifyTaskStatus(TaskBean task) async {
+  modifyTaskStatus(Task task) async {
     Get.loading();
     try {
-      TaskBean bean =
-          await _taskRepository.modifyTaskStatus(task.id, task.status);
-      task = bean;
-    } catch (e) {}
-    update();
+      await _taskRepository.modifyTaskStatus(task);
+      var newTask = _tasks.firstWhere(
+          (element) => element.id == task.id && element.status != task.status,
+          orElse: () => null);
+      if (newTask != null) {
+        newTask.status = task.status;
+        // print("modifyTaskStatus==${newTask.status}");
+        // int index = _tasks.indexOf(newTask);
+        // print("modifyTaskStatus==${_tasks[index]}");
+      }
+      update();
+    } catch (e) {
+      print('modifyTaskStatus' + e.toString());
+    }
     Get.dismiss();
   }
 
