@@ -51,7 +51,7 @@ class TaskRepository {
     TasksCompanion tasksCompanion = TasksCompanion(
       title: Value(task?.title ?? title),
       content: Value(task?.content ?? content),
-      id: Value(task?.id ?? null),
+      id: task?.id==null ? Value<int>.absent():Value(task?.id),
       date: Value(task?.date ??
           DateTime.parse(task?.dateStr ?? date).microsecondsSinceEpoch),
       dateStr: Value(task?.dateStr ?? date),

@@ -13,7 +13,13 @@ import 'package:todo/modules/splash/splash_page.dart';
 import 'package:todo/routes/app_pages.dart';
 import 'package:todo/theme/app_theme.dart';
 
+import 'utils/dependency_injection.dart';
+import 'utils/gloab_config.dart';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await GloabConfig.init();
+  await DenpendencyInjection.init();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     initialRoute: '/',

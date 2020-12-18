@@ -32,7 +32,8 @@ dependencies:
   flutter_slidable: ^0.5.7
   get: ^3.21.2
   google_fonts: ^1.1.1
-  moor: ^3.4.0
+  moor:
+  sqlite3_flutter_libs:
   path: ^1.7.0
   path_provider: ^1.6.24
   pull_to_refresh: ^1.6.3
@@ -43,7 +44,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.10.7
-  moor_generator: ^3.4.0
+  moor_generator:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
